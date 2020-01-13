@@ -37,6 +37,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [Space(5)]
     public Text playerStatus;
     public Text connectionStatus;
+    public Text Region;
 
     string playerName = "";
     string roomName = "";
@@ -45,6 +46,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     Text currentRoom;
     [SerializeField]
     Text currentUser;
+
+    //RoomCustomProperties
+   
+
 
     // Start is called before the first frame update
     void Start()
@@ -82,11 +87,22 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LocalPlayer.NickName = playerName;
             Debug.Log("Photon connected|trying to join room" + roomNameInput.text);
+
             RoomOptions roomOptions = new RoomOptions();
-            TypedLobby typedLobby = new TypedLobby(roomName, LobbyType.Default);
-            PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, typedLobby);
-            
-           
+            //CustomProperties hashtablesetup
+            ExitGames.Client.Photon.Hashtable RoomCustomProperties = new ExitGames.Client.Photon.Hashtable();
+            RoomCustomProperties.Add("player", "john smith");
+            RoomCustomProperties.Add("scenario", "FreestyleAuditorium");
+            RoomCustomProperties.Add("Company", "Instage");
+            RoomCustomProperties.Add("Location", "somewhere");
+
+            roomOptions.CustomRoomProperties = RoomCustomProperties;
+
+
+            //TypedLobby typedLobby = new TypedLobby(roomName, LobbyType.Default);
+            PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+   
+            //Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("player").ToString());
         }
     }
 
@@ -151,6 +167,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("I AM ON THE MASTER");
 
+        PhotonNetwork.JoinLobby();
+        Debug.Log(PhotonNetwork.CloudRegion);
+        Region.text = PhotonNetwork.CloudRegion;
     }
 
 
