@@ -16,6 +16,8 @@ public class FillRoomInfo : MonoBehaviour
     TextMeshProUGUI CompanyText;
     [SerializeField]
     TextMeshProUGUI LocationText;
+    [HideInInspector]
+    public RoomInfo info;
 
     //Class containing room info
     //[SerializeField]
@@ -31,9 +33,12 @@ public class FillRoomInfo : MonoBehaviour
     
     public void SetRoomInfo(RoomInfo roomInfo)
     {
+        NameText.text = roomInfo.Name;
+        ScenarioText.text = roomInfo.CustomProperties[RoomPropety.Scenario].ToString();
+        CompanyText.text = roomInfo.CustomProperties[RoomPropety.Company].ToString();
+
+        info = roomInfo;
         
-        NameText.text = roomInfo.CustomProperties.Count.ToString();
-        //NameText.text = roomInfo.Name;  
     }
 
 

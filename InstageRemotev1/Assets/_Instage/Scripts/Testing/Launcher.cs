@@ -91,31 +91,39 @@ public class Launcher : MonoBehaviourPunCallbacks
             RoomOptions roomOptions = new RoomOptions();
             //CustomProperties hashtablesetup
             ExitGames.Client.Photon.Hashtable RoomCustomProperties = new ExitGames.Client.Photon.Hashtable();
-            RoomCustomProperties.Add("player", "john smith");
-            RoomCustomProperties.Add("scenario", "FreestyleAuditorium");
-            RoomCustomProperties.Add("Company", "Instage");
-            RoomCustomProperties.Add("Location", "somewhere");
 
+            //Custom room properties are private until set in custom room props for lobby
+            RoomCustomProperties.Add("player", "john smith");
+            RoomCustomProperties.Add(RoomPropety.Scenario, "FreestyleAuditorium");
+            RoomCustomProperties.Add(RoomPropety.Company, "Instage");
+            RoomCustomProperties.Add(RoomPropety.Location, "somewhere");
+
+            //This chooses what custom room properties are public values
             roomOptions.CustomRoomProperties = RoomCustomProperties;
 
+            string[] publicProperties =
+            {
+               RoomPropety.Scenario,
+               RoomPropety.Company,
+               RoomPropety.Location
+            };
+
+            roomOptions.CustomRoomPropertiesForLobby = publicProperties;
+           
+            
 
             //TypedLobby typedLobby = new TypedLobby(roomName, LobbyType.Default);
-            PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
-   
+            PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default );
+            
+
             //Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("player").ToString());
         }
     }
 
     public void loadAreana()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
-        {
+      
             PhotonNetwork.LoadLevel(1);
-        }
-        else
-        {
-            playerStatus.text = "Minumum 2 players required to load session";
-        }
     }
 
     
