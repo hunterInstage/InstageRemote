@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Instage/_Scenes/DebugScenes/TestRoomCreator.unity
     guid: 454018d97a1a9214c97c68768d0621d2
+  - enabled: 1
+    path: Assets/_Instage/_Scenes/HomeScene.unity
+    guid: 1663ac5b9dc93214b9944b05b1f81b80
   m_configObjects: {}
