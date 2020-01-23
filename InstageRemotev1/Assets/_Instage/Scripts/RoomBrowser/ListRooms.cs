@@ -11,18 +11,39 @@ public class ListRooms : MonoBehaviourPunCallbacks
     [SerializeField]
     private FillRoomInfo roomListing;
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+
+    public void Start()
     {
-       
-        foreach(RoomInfo info in roomList)
+        if (FindObjectOfType<RoomContainer>())
         {
-            FillRoomInfo listing = (FillRoomInfo)Instantiate(roomListing, Content);
+            foreach (RoomInfo info in FindObjectOfType<RoomContainer>().CurrentRooms)
+            {
+                FillRoomInfo listing = Instantiate(roomListing, Content);
+                if (listing != null)
+                {
+                    listing.SetRoomInfo(info);
+                   
+                }
+            }
+        }
+      
+    }
+
+
+    public void CreateRoomButtons(List<RoomInfo> RI)
+    {
+        foreach (RoomInfo info in RI)
+        {
+            FillRoomInfo listing = Instantiate(roomListing, Content);
             if (listing != null)
             {
                 listing.SetRoomInfo(info);
-                Debug.Log("ROOM UPDATE");
+               
             }
         }
     }
+
+
+ 
 
 }

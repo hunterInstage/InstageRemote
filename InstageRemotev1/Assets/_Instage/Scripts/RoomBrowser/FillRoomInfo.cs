@@ -31,13 +31,16 @@ public class FillRoomInfo : MonoBehaviour
 
     //public RoomInfo ButtonInfo;
     
+    //Sets up room nutton to display information properly
     public void SetRoomInfo(RoomInfo roomInfo)
     {
-        NameText.text = roomInfo.Name;
+        NameText.text = roomInfo.CustomProperties[RoomPropety.Name].ToString();
         ScenarioText.text = roomInfo.CustomProperties[RoomPropety.Scenario].ToString();
         CompanyText.text = roomInfo.CustomProperties[RoomPropety.Company].ToString();
-
+        LocationText.text = roomInfo.CustomProperties[RoomPropety.Location].ToString();
         info = roomInfo;
+
+        Debug.Log(roomInfo.CustomProperties[RoomPropety.Name].ToString());
         
     }
 
